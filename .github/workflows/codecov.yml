@@ -16,15 +16,20 @@ jobs:
       run: |
         pip install pytest
         pip install pytest-cov
-        pytest --cov=./ --cov-report=xml
+        pytest --cov-report term:skip-covered --cov=./ --cov-report=xml
+      - name: Update coverage
+        if: github.event_name == 'push'
+        run: bash ./general/scripts/update_coverage.sh originationservice os-coverage
+    - name: Set coverage
+      run: echo "COVERAGE=42" >> $GITHUB_ENV
     - name: Create Awesome Badge
       uses: schneegans/dynamic-badges-action@v1.0.0
       with:
         auth: ${{ secrets.GIST_SECRET }}
         gistID: ${{ secrets.GIST_ID }}
-        filename: test.json
-        label: Hello
-        message: World
+        filename: coverage.json
+        label: coverage
+        message: ${{ env.COVERAGE }}
         color: orange
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1.0.5
