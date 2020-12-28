@@ -17,9 +17,6 @@ jobs:
         pip install pytest
         pip install pytest-cov
         pytest --cov-report term:skip-covered --cov=./ --cov-report=xml
-      - name: Update coverage
-        if: github.event_name == 'push'
-        run: bash ./general/scripts/update_coverage.sh originationservice os-coverage
     - name: Set coverage
       run: echo "COVERAGE=42" >> $GITHUB_ENV
     - name: Create Awesome Badge
