@@ -1,2 +1,4 @@
 [run]
 omit = venv37/*
+[report]
+fail_under = 90.0
