@@ -17,6 +17,15 @@ jobs:
         pip install pytest
         pip install pytest-cov
         pytest --cov=./ --cov-report=xml
+    - name: Create Awesome Badge
+      uses: schneegans/dynamic-badges-action@v1.0.0
+      with:
+        auth: ${{ secrets.GIST_SECRET }}
+        gistID: ${{ secrets.GIST_ID }}
+        filename: test.json
+        label: Hello
+        message: World
+        color: orange
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1.0.5
       with:
