@@ -1,5 +1,5 @@
 name: Example workflow for Codecov
-on: [push, pull_request]
+on: [push]
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -17,14 +17,16 @@ jobs:
         pip install pytest
         pip install pytest-cov
         pytest --cov=./ --cov-report=xml
+    - name: Set coverage
+      run: echo "COVERAGE=42" >> $GITHUB_ENV
     - name: Create Awesome Badge
       uses: schneegans/dynamic-badges-action@v1.0.0
       with:
         auth: ${{ secrets.GIST_SECRET }}
         gistID: ${{ secrets.GIST_ID }}
-        filename: test.json
-        label: Hello
-        message: World
+        filename: coverage.json
+        label: coverage
+        message: ${{ env.COVERAGE }}
         color: orange
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1.0.5
