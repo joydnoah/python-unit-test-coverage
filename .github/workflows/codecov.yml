@@ -18,7 +18,8 @@ jobs:
         pip install pytest-cov
         pytest --cov-report term:skip-covered --cov=./ --cov-report=xml
     - name: Set coverage
-      run: echo "COVERAGE=42" >> $GITHUB_ENV
+      run: |
+        python coverage_total.py
     - name: Create Awesome Badge
       uses: schneegans/dynamic-badges-action@v1.0.0
       with:
