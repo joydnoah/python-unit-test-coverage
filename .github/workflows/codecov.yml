@@ -1,5 +1,5 @@
 name: Example workflow for Codecov
-on: [push, pull_request]
+on: [push]
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -19,16 +19,7 @@ jobs:
         pytest --cov-report term:skip-covered --cov=./ --cov-report=xml
     - name: Set coverage
       run: |
-        python coverage_total.py
-    - name: Create Awesome Badge
-      uses: schneegans/dynamic-badges-action@v1.0.0
-      with:
-        auth: ${{ secrets.GIST_SECRET }}
-        gistID: ${{ secrets.GIST_ID }}
-        filename: coverage.json
-        label: coverage
-        message: ${{ env.COVERAGE }}
-        color: orange
+        python coverage_total.py ${{ secrets.GIST_SECRET }} ${{ secrets.GIST_ID }}
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1.0.5
       with:
