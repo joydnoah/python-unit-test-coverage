@@ -1,4 +1,6 @@
 [run]
-omit = venv37/*
+omit =
+    venv37/*
+    coverage_total.py
 [report]
-fail_under = 90.0
+fail_under = 80.0
