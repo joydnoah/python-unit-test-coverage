@@ -17,6 +17,9 @@ cov.load()
 with open(os.devnull, "w") as f:
     total = cov.report(file=f)
 
+print(total)
+total = round(total, 2)
+
 API_TOKEN = sys.argv[1]
 GIST_ID = sys.argv[2]
 
